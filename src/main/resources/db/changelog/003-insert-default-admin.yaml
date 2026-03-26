@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-insert-default-admin
+      author: dev
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: admin
+              - column:
+                  name: email
+                  value: admin@bankcards.com
+              - column:
+                  # BCrypt hash of 'admin123'
+                  name: password
+                  value: "$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi."
+              - column:
+                  name: role
+                  value: ADMIN
+              - column:
+                  name: enabled
+                  valueBoolean: true

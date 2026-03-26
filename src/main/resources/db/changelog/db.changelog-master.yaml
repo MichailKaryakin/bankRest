@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/001-create-users-table.yaml
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/002-create-cards-table.yaml
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/003-insert-default-admin.yaml
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/004-create-refresh-tokens-table.yaml
+      relativeToChangelogFile: false
