@@ -15,11 +15,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+
+import static org.example.bankrest.repository.CardSpecification.fetchOwner;
+import static org.example.bankrest.repository.CardSpecification.withFilters;
 
 @Slf4j
 @Service
@@ -65,9 +69,11 @@ public class CardService {
 
     @Transactional(readOnly = true)
     public PagedResponse<CardResponse> getAllCards(CardStatus status, Pageable pageable) {
+
         Page<CardResponse> page = cardRepository
-                .findAll(CardSpecification.withFilters(null, status), pageable)
+                .findAll(Specification.where(fetchOwner()).and(withFilters(null, status)), pageable)
                 .map(this::toResponse);
+
         return toPagedResponse(page);
     }
 
@@ -78,10 +84,13 @@ public class CardService {
 
     @Transactional(readOnly = true)
     public PagedResponse<CardResponse> getUserCards(String username, CardStatus status, Pageable pageable) {
+
         User owner = findUserOrThrow(username);
+
         Page<CardResponse> page = cardRepository
-                .findAll(CardSpecification.withFilters(owner.getId(), status), pageable)
+                .findAll(Specification.where(fetchOwner()).and(withFilters(owner.getId(), status)), pageable)
                 .map(this::toResponse);
+
         return toPagedResponse(page);
     }
 
