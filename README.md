@@ -2,21 +2,6 @@
 
 REST API для управления банковскими картами с аутентификацией через JWT, ролевым доступом и шифрованием номеров карт.
 
-## Технологии
-
-- **Java 21**
-- **Spring Boot 4.0.4**
-- **Spring Security**
-- **JWT**
-- **Spring Data JPA**
-- **PostgreSQL**
-- **Liquibase**
-- **Docker**
-- **Docker Compose**
-- **Swagger UI**
-
----
-
 ## Запуск в контейнере (Docker Compose)
 
 ```bash
@@ -25,27 +10,19 @@ cd bankRest
 docker-compose up --build
 ```
 
-Приложение будет доступно на `http://localhost:8080`  
+Приложение: `http://localhost:8080`  
 Swagger UI: `http://localhost:8080/swagger-ui.html`
-
----
 
 ## Запуск локально
 
 ```bash
-# 1. Клонировать репозиторий
 git clone https://github.com/MichailKaryakin/bankRest.git
 cd bankRest
-
-# 2. Запустить PostgreSQL и создать базу
 psql -U postgres -c "CREATE DATABASE bankRest;"
-
-# 3. Собрать и запустить
 mvn spring-boot:run
 ```
----
 
-## Переменные окружения (сейчас в application.yml)
+## Переменные окружения
 
 | Переменная               | По умолчанию    | Описание                       |
 |--------------------------|-----------------|--------------------------------|
@@ -59,8 +36,6 @@ mvn spring-boot:run
 | `JWT_REFRESH_EXPIRATION` | `604800000`     | Время жизни refresh токена, мс |
 | `SERVER_PORT`            | `8080`          | Порт приложения                |
 
----
-
 ## Дефолтный администратор
 
 Создаётся автоматически миграцией `003-insert-default-admin.yaml`:
@@ -70,8 +45,6 @@ mvn spring-boot:run
 | Username | `admin`    |
 | Password | `admin123` |
 | Role     | `ADMIN`    |
-
----
 
 ## API
 
@@ -112,15 +85,11 @@ mvn spring-boot:run
 | `PATCH`  | `/api/v1/admin/users/{id}/toggle` | Включить/выключить аккаунт   |
 | `DELETE` | `/api/v1/admin/users/{id}`        | Удалить пользователя         |
 
----
-
-## Запуск тестов
+## Тесты
 
 ```bash
 mvn test
 ```
-
----
 
 ## Безопасность
 
